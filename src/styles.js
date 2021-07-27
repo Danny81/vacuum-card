@@ -140,7 +140,7 @@ export default css`
     height: 40px;
     display: flex;
     flex-direction: row;
-    justify-contents: flex-end;
+    justify-content: flex-end;
     align-items: center;
     color: var(--text-primary-color);
   }
