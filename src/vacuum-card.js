@@ -5,6 +5,7 @@ import localize from './localize';
 import styles from './styles';
 import defaultImage from './vacuum.png';
 
+
 if (!customElements.get('ha-icon-button')) {
   customElements.define(
     'ha-icon-button',
