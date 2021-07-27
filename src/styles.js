@@ -217,7 +217,8 @@ export default css`
   }
 
   .stats-value {
-    font-size: 20px;
+    font-size: 18px;
+    padding-bottom:2px;
     font-weight: bold;
   }
 
