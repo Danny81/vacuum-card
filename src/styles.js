@@ -22,6 +22,7 @@ export default css`
     overflow: hidden;
     position: relative;
     text-align: center;
+    justify-contents: flex-end;
   }
 
   .preview.not-available {
