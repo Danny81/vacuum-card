@@ -145,7 +145,7 @@ class RoombaVacuumCard extends LitElement {
   }
 
   callService(service, isRequest = true, options = {}) {
-    this.hass.callService('vacuum', service, {
+    this.hass.callService('', service, {
       entity_id: this.config.entity,
       ...options,
     });
@@ -388,7 +388,7 @@ class RoombaVacuumCard extends LitElement {
         >
           <div class="header">
             <div class="battery">
-              ${battery}% <ha-icon icon="mdi:battery"></ha-icon>
+              ${battery} <ha-icon icon="mdi:battery"></ha-icon>
             </div>
           </div>
 
