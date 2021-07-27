@@ -22,7 +22,6 @@ export default css`
     overflow: hidden;
     position: relative;
     text-align: center;
-    justify-contents: flex-end;
   }
 
   .preview.not-available {
@@ -141,7 +140,7 @@ export default css`
     height: 40px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-contents: flex-end;
     align-items: center;
     color: var(--text-primary-color);
   }
