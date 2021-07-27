@@ -178,6 +178,7 @@ const X="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.pro
     overflow: hidden;
     position: relative;
     text-align: center;
+    justify-contents: flex-end;
   }
 
   .preview.not-available {
