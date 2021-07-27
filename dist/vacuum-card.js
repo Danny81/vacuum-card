@@ -296,7 +296,7 @@ const X="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.pro
     height: 40px;
     display: flex;
     flex-direction: row;
-    justify-contents: flex-end;
+    justify-content: flex-end;
     align-items: center;
     color: var(--text-primary-color);
   }
