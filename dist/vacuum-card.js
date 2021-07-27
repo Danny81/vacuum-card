@@ -178,7 +178,6 @@ const X="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.pro
     overflow: hidden;
     position: relative;
     text-align: center;
-    justify-contents: flex-end;
   }
 
   .preview.not-available {
@@ -297,7 +296,7 @@ const X="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.pro
     height: 40px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-contents: flex-end;
     align-items: center;
     color: var(--text-primary-color);
   }
