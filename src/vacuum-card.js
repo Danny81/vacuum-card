@@ -145,8 +145,7 @@ class RoombaVacuumCard extends LitElement {
   }
 
   callService(service, isRequest = true, options = {}) {
-    this.hass.callService('', service, {
-      entity_id: this.config.entity,
+    this.hass.callService('script', service, {
       ...options,
     });
 
@@ -341,7 +340,7 @@ class RoombaVacuumCard extends LitElement {
             <ha-icon-button
               icon="hass:play"
               title="${localize('common.start')}"
-              @click="${() => this.callService('script.start_clean_of_selected_rooms')}"
+              @click="${() => this.callService('start_clean_of_selected_rooms')}"
             >
             </ha-icon-button>
 
