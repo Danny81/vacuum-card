@@ -1,7 +1,6 @@
 import { LitElement, html } from 'lit-element';
 import { hasConfigOrEntityChanged, fireEvent } from 'custom-card-helpers';
 import get from 'lodash.get';
-import './vacuum-card-editor';
 import localize from './localize';
 import styles from './styles';
 import defaultImage from './vacuum.png';
@@ -13,7 +12,7 @@ if (!customElements.get('ha-icon-button')) {
   );
 }
 
-class VacuumCard extends LitElement {
+class RoombaVacuumCard extends LitElement {
   static get properties() {
     return {
       hass: Object,
@@ -24,10 +23,6 @@ class VacuumCard extends LitElement {
 
   static get styles() {
     return styles;
-  }
-
-  static async getConfigElement() {
-    return document.createElement('vacuum-card-editor');
   }
 
   static getStubConfig(hass, entities) {
@@ -149,11 +144,6 @@ class VacuumCard extends LitElement {
     );
   }
 
-  handleSpeed(e) {
-    const fan_speed = e.target.getAttribute('value');
-    this.callService('set_fan_speed', false, { fan_speed });
-  }
-
   callService(service, isRequest = true, options = {}) {
     this.hass.callService('vacuum', service, {
       entity_id: this.config.entity,
@@ -168,65 +158,15 @@ class VacuumCard extends LitElement {
 
   getAttributes(entity) {
     const {
-      status,
-      state,
-      fan_speed,
-      fan_speed_list,
-      battery_level,
-      battery_icon,
+      battery,
       friendly_name,
     } = entity.attributes;
 
     return {
-      status: status || state || entity.state,
-      fan_speed,
-      fan_speed_list,
-      battery_level,
-      battery_icon,
+      status: entity.state,
+      battery,
       friendly_name,
     };
-  }
-
-  renderSource() {
-    const { fan_speed: source, fan_speed_list: sources } = this.getAttributes(
-      this.entity
-    );
-
-    if (!sources) {
-      return html``;
-    }
-
-    const selected = sources.indexOf(source);
-
-    return html`
-      <paper-menu-button
-        slot="dropdown-trigger"
-        .horizontalAlign=${'right'}
-        .verticalAlign=${'top'}
-        .verticalOffset=${40}
-        .noAnimations=${true}
-        @click="${(e) => e.stopPropagation()}"
-      >
-        <paper-button slot="dropdown-trigger">
-          <ha-icon icon="mdi:fan"></ha-icon>
-          <span show=${true}>
-            ${localize(`source.${source}`) || source}
-          </span>
-        </paper-button>
-        <paper-listbox
-          slot="dropdown-content"
-          selected=${selected}
-          @click="${(e) => this.handleSpeed(e)}"
-        >
-          ${sources.map(
-            (item) =>
-              html`<paper-item value=${item}
-                >${localize(`source.${item}`) || item}</paper-item
-              >`
-          )}
-        </paper-listbox>
-      </paper-menu-button>
-    `;
   }
 
   renderMapOrImage(state) {
@@ -401,7 +341,7 @@ class VacuumCard extends LitElement {
             <ha-icon-button
               icon="hass:play"
               title="${localize('common.start')}"
-              @click="${() => this.callService('start')}"
+              @click="${() => this.callService('script.start_clean_of_selected_rooms')}"
             >
             </ha-icon-button>
 
@@ -437,7 +377,7 @@ class VacuumCard extends LitElement {
     }
 
     const { state } = this.entity;
-    const { battery_level, battery_icon } = this.getAttributes(this.entity);
+    const { battery } = this.getAttributes(this.entity);
 
     return html`
       <ha-card>
@@ -447,11 +387,8 @@ class VacuumCard extends LitElement {
           ?more-info="true"
         >
           <div class="header">
-            <div class="source">
-              ${this.renderSource()}
-            </div>
             <div class="battery">
-              ${battery_level}% <ha-icon icon="${battery_icon}"></ha-icon>
+              ${battery}% <ha-icon icon="mdi:battery"></ha-icon>
             </div>
           </div>
 
@@ -472,12 +409,12 @@ class VacuumCard extends LitElement {
   }
 }
 
-customElements.define('vacuum-card', VacuumCard);
+customElements.define('roomba-vacuum-card', RoombaVacuumCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
   preview: true,
-  type: 'vacuum-card',
+  type: 'roomba-vacuum-card',
   name: localize('common.name'),
   description: localize('common.description'),
 });
